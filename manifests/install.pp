@@ -9,8 +9,8 @@ class portal_alfresco::install {
   $alfresco_admin_password = 'admin'
   $alfresco_install_service = $portal_alfresco::start_method ? {
     'service' => 1,
-    'script' => 0,
-    default => 0
+    'script'  => 0,
+    default   => 0
   }
 
   file {'create option file':
