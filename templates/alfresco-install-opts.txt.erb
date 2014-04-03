@@ -1,12 +1,12 @@
 <%# portal_alfresco/templates/alfresco-install-opts.txt.erb %>
 mode=unattended
-#enable-components=
-#disable-components=
+enable-components=javaalfresco,postgres,alfrescogoogledocs,libreofficecomponent
+disable-components=alfrescowcmqs,alfrescosharepoint
 
 # Install location
 prefix=<%= @alfresco_install_path %>
 
 alfresco_admin_password=<%= @alfresco_admin_password %>
 
-# Don't install init scripts
+# install init scripts
 baseunixservice_install_as_service=<%= @alfresco_install_service %>
