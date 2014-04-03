@@ -30,9 +30,6 @@ class portal_alfresco {
     $start_method = hiera('alfresco_start_method', 'none')
   }
 
-  # Setup start
-  $start_method = 'script'
-
   case $start_method {
     'script': {
       include portal_alfresco::startscript
