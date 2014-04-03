@@ -1,6 +1,12 @@
 class portal_alfresco::amps {
 
-  $amp_download_folder = '/opt/amps-downloaded'
+  if ($::amp_download_folder) {
+    $amp_download_folder =  $::amp_download_folder    
+  } else {
+    $amp_download_folder = hiera('amp_download_folder','/opt/amps-downloaded')  
+  }
+  
+
   $mmt_path = "${portal_alfresco::alfresco_install_path}/bin/alfresco-mmt.jar"
   $mmt_cmd_base = "${portal_alfresco::alfresco_install_path}/java/bin/java -jar ${mmt_path} install"
 

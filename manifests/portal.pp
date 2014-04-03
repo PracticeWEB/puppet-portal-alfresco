@@ -1,6 +1,11 @@
 class portal_alfresco::portal {
 
-  $jenkins_portal_zip = 'http://jenkins-test.dev.sift.com:8080/job/Portal%20CI/ws/pw_portal/dist/Portal3.zip'
+  if ($::portal_download) {
+    $download = $::portal_download
+  } else {
+    $download = hiera('portal_download', 'http://jenkins-test.dev.sift.com:8080/job/Portal%20CI/ws/pw_portal/dist/Portal3.zip')
+  }
+
   $portal_zip_path = '/opt/Portal.zip'
 # TODO args need more prep
   $alfresco_webapps_path = "${portal_alfresco::alfresco_install_path}/tomcat/webapps"
@@ -26,7 +31,7 @@ class portal_alfresco::portal {
 
   # Download from jenkins
   exec {'download portal.zip':
-    command => "/usr/bin/wget -q $jenkins_portal_zip -O $portal_zip_path",
+    command => "/usr/bin/wget -q $download -O $portal_zip_path",
     creates => "${portal_alfresco::flags_path}/portal-installed"
   }
 

@@ -1,11 +1,19 @@
 class portal_alfresco {
-  # ensure that we have a download
 
-# Common variables
-  $alfresco_install_path = '/opt/alfresco-4.2.e'
-  $flags_path = '/opt/alfresco-install-flags/'
+  # Common variables
+  if ($::alfresco_install_path) {
+    $alfresco_install_path = $::alfresco_install_path
+  } else {
+    $alfresco_install_path = hiera('alfresco_install_path', '/opt/alfresco-4.2.e')
+  }
 
-  # TODO make sure this comes first before includes
+  if ($::flags_path) { 
+    $flags_path = $::flags_path
+  } else {
+    $flags_path = hiera('flags_path', '/opt/alfresco-install-flags/')
+  }
+
+  # Install flags gives us some state. 
   file {'alfresco_install_flags':
     ensure => directory,
     path   => $flags_path
@@ -15,6 +23,12 @@ class portal_alfresco {
   include portal_alfresco::install,portal_alfresco::amps,portal_alfresco::portal, portal_alfresco::config
   # Class deps
   File['alfresco_install_flags']->Class['portal_alfresco::install']->Class['portal_alfresco::amps']->Class['portal_alfresco::portal']->Class['portal_alfresco::config']
+
+  if ($::alfresco_start_method) {
+    $start_method = $::alfresco_start_method
+  } else {
+    $start_method = hiera('alfresco_start_method', 'none')
+  }
 
   # Setup start
   $start_method = 'script'
