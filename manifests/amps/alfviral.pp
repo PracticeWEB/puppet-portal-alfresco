@@ -22,7 +22,7 @@ class portal_alfresco::amps::alfviral {
   file {'add_av_jar':
     ensure => present,
     path   => "${portal_alfresco::alfresco_install_path}/tomcat/shared/classes/lib/fegorsoft-alfviral-share-1.3.0.420.jar",
-    source => "file://$jar_path",
+    source => "$jar_path",
   }
 
   # Install to repo with mmt

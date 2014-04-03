@@ -16,7 +16,7 @@ class portal_alfresco::portal {
 
   # TODO add to war
   exec {'update war':
-    command => "/usr/bin/jar uf ${alfresco_war_path} -C ${portal_unzip_path} WEB-INF",
+    command => "${portal_alfresco::alfresco_install_path}/java/bin/jar uf ${alfresco_war_path} -C ${portal_unzip_path} WEB-INF",
     require => Exec['extract portal.zip'],
     creates => "${portal_alfresco::flags_path}/portal-installed",
   } -> file {'portal-installed-flag':

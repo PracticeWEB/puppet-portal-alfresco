@@ -2,7 +2,7 @@ class portal_alfresco::amps {
 
   $amp_download_folder = '/opt/amps-downloaded'
   $mmt_path = "${portal_alfresco::alfresco_install_path}/bin/alfresco-mmt.jar"
-  $mmt_cmd_base = "/opt/alfresco-4.2.e/java/bin/java -jar ${mmt_path} install"
+  $mmt_cmd_base = "${portal_alfresco::alfresco_install_path}/java/bin/java -jar ${mmt_path} install"
 
 # TODO make sure this comes first before includes
   file {'amps_download_folder':
